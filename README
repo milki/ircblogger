@@ -1,0 +1,14 @@
+<milki> ircblogger is a pseudo-blog
+<milki> Posts are generated from IRC, tracking everything I say
+<milki> The posts are editted for content and censored appropriately to remove any personal identifying information
+<milki> This project was born from the simple I idea that I should publish what I type on IRC somehow
+<milki> I tend to produce large blocks of monologues on IRC, as you can see from the posts on this blog
+<milki> That was a couple years ago
+<milki> I've now taken the idea to produce IrcMyLife
+<milki> This pseudo-blog is a demonstration integrating
+<milki> IRC, eggdrop, git, gitolite, Redmine, Pastebin, and JQuery
+<milki> a complex, semi-hands-free blog generator
+<milki> Posts are generated from IRC and stored in git
+<milki> Redmine tracks unpublished posts
+<milki> Using Pastebin, I can edit the posts
+<milki> Finally, JQuery pulls the requested posts onto the webpage
