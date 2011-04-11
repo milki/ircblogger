@@ -1,0 +1,15 @@
+#!/usr/bin/python
+import os, json
+
+def main():
+    files = os.listdir('/home/milki/public_html/logs');
+    channels = [ name.split('.')[0].lstrip('#') for name in files ]
+    chanset = set(channels)
+
+    chans_json = json.dumps( { "channels" : list(chanset) } )
+
+    print("Content-Type: application/json\n");
+    print(chans_json);
+
+if __name__ == "__main__":
+    main();

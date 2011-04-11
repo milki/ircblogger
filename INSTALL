@@ -1,0 +1,17 @@
+FILES
+
+channels.xml            Python script generating channels list
+eggdrop-logger.tcl      Eggdrop 1.8.x script logging IRC
+logs.xml                Python script generating logs list
+
+Eggdrop
+
+Install Eggdrop 1.8.x. Currently, Eggdrop 1.8.x can only be installed from the CVS tree. You can obtain a nightly snapshot from the website.
+
+http://www.eggheads.org/
+
+Once installed, place eggdrop-logger.tcl in the eggdrop scripts directory and source it from the configuration file. Be sure to modify the nick to track.
+
+Website
+
+The two files, channels.xml and logs.xml, are python CGI scripts providing XML data. Simply, make them publicly accessible from the web server and call them via JavaScript.

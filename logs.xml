@@ -1,0 +1,70 @@
+#!/usr/bin/python
+
+import cgi
+import sys,os
+import glob
+import re
+import json
+
+def main():
+    query = None
+    if os.getenv('QUERY_STRING'):
+        query = cgi.urllib.unquote(os.getenv('QUERY_STRING'))
+    else:
+        query = 'channel=loremipsum'
+
+    params = cgi.parse_qs(query)
+    channel = params['channel'][0]
+
+    files = glob.glob('/home/milki/public_html/logs/*' + channel + '*')
+    files.sort()
+
+    size = len(files)
+    if 'range' in params:
+        range = params['range'][0]
+        if range == 'null':
+            range = 10
+        else:
+            range = int(range)
+    else:
+        range = 10;
+    if size-range < 0:
+        range = size;
+    if 'start' in params:
+        start = params['start'][0]
+        if start == 'null' or start < size - range or start < 0:
+            start = size - range
+        else:
+            start = int(start)
+    else:
+        start = size - range
+
+    lognames = files[start:start+range]
+
+    log_dict = { "channel" : {
+        "title" :  channel,
+        "topic" : 'milkiness',
+        "created" : re.search(r"\d{4}-\d{2}-\d{2}",files[start]).group(0),
+        "start" : start,
+        "total_count" : range,
+        "logs" : [] }
+        }
+
+    for logname in lognames:
+        log = open(logname)
+        entry = ''.join(log.readlines())
+        log.close()
+
+        logdate = re.search(r"\d{4}-\d{2}-\d{2}",logname).group(0)
+        log_dict['channel']['logs'].append({
+            "date" : logdate,
+            "entry" : entry
+            })
+
+    logs_json = json.dumps(log_dict)
+
+    print("Content-Type: application/json\n")
+    print(logs_json)
+
+if __name__ == "__main__":
+    main()
